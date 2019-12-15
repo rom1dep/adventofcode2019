@@ -6,7 +6,6 @@ object D02 extends App with
   val input                = scala.io.Source.fromFile("./c2").getLines.toList.head
   val data                 = input.split(',').map(_.toInt)
   val initProgram          = data.updated(1, 12).updated(2, 2).toList
-  type Opcode = 1|2|99
   type Program = List[Int]
 
   @tailrec
@@ -28,11 +27,10 @@ object D02 extends App with
   //Solution 2 "what pair of inputs produces the output 19690720"
   val nouns = (0 to 99)
   val verbs = (0 to 99)
-  val res = 
-    for n <- nouns
-        v <- verbs
+  val res =
+    for n <- nouns.view
+        v <- verbs.view
         newProgram = data.updated(1, n).updated(2, v).toList
         output = compute(cursor = 0, newProgram)(0)
-        if output == 19690720
-    yield 100 * n + v
-  println(res.head)
+    yield (output, 100 * n + v)
+  println(res.dropWhile(_._1 != 19690720).head._2)
