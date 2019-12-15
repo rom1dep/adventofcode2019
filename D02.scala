@@ -27,10 +27,9 @@ object D02 extends App with
   //Solution 2 "what pair of inputs produces the output 19690720"
   val nouns = (0 to 99)
   val verbs = (0 to 99)
-  val res =
-    for n <- nouns.view
-        v <- verbs.view
-        newProgram = data.updated(1, n).updated(2, v).toList
-        output = compute(cursor = 0, newProgram)(0)
-    yield (output, 100 * n + v)
-  println(res.dropWhile(_._1 != 19690720).head._2)
+  val reslt = for n <- nouns.view
+                  v <- verbs.view
+                  newProgram = data.updated(1, n).updated(2, v).toList
+                  output = compute(cursor = 0, newProgram)(0)
+              yield (output, 100 * n + v)
+  println(reslt.dropWhile(_._1 != 19690720).head._2)
